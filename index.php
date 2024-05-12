@@ -1,73 +1,31 @@
-<?php 
-#@Viscobt1
-#@musicalgeria
-#@FROM_PHP
-ob_start();
+<?php
 
-$API_KEY = '7137946160:AAEtkKjWlJ-Pex9OsdoO9UnScTqabt88ss8';
-define('API_KEY',$API_KEY);
+error_reporting(0);
+
+header("Content-Type: application/json; charset=UTF-8");
+flush();
+ob_start();
+set_time_limit(0);
+error_reporting(0);
+ob_implicit_flush(1);
+date_default_timezone_set('Asia/Baghdad');
+$API_KEY = "7137946160:AAGLFD8wIl0LNtswf9oST-5jhYf1rNZXkWM";
+ define('API_KEY',$API_KEY);
 function bot($method,$datas=[]){
-    $url = "https://api.telegram.org/bot".API_KEY."/".$method;
-    $ch = curl_init();
+$url = "https://api.telegram.org/bot".API_KEY."/".$method;
+$ch = curl_init();
     curl_setopt($ch,CURLOPT_URL,$url);
     curl_setopt($ch,CURLOPT_RETURNTRANSFER,true);
     curl_setopt($ch,CURLOPT_POSTFIELDS,$datas);
     $res = curl_exec($ch);
     if(curl_error($ch)){
         var_dump(curl_error($ch));
-    }else{
+        }else{
         return json_decode($res);
     }
 }
- function sendmessage($chat_id, $text, $model){
-	bot('sendMessage',[
-	'chat_id'=>$chat_id,
-	'text'=>$text,
-	'parse_mode'=>$mode
-	]);
-	}
-	function sendaction($chat_id, $action){
-	bot('sendchataction',[
-	'chat_id'=>$chat_id,
-	'action'=>$action
-	]);
-	}
-	function Forward($KojaShe,$AzKoja,$KodomMSG)
-{
-    bot('ForwardMessage',[
-        'chat_id'=>$KojaShe,
-        'from_chat_id'=>$AzKoja,
-        'message_id'=>$KodomMSG
-    ]);
-}
-function sendphoto($chat_id, $photo, $action){
-	bot('sendphoto',[
-	'chat_id'=>$chat_id,
-	'photo'=>$photo,
-	'action'=>$action
-	]);
-	}
-	function objectToArrays($object)
-    {
-        if (!is_object($object) && !is_array($object)) {
-            return $object;
-        }
-        if (is_object($object)) {
-            $object = get_object_vars($object);
-        }
-        return array_map("objectToArrays", $object);
-    }
-    
 $update = json_decode(file_get_contents('php://input'));
 $message = $update->message;
-$text = $message->text;
-$chj = "bi_ek0";//معرف قناتك بدون @
-$chat_id = $message->chat->id;
-$from_id = $message->from->id;
-$fn = $message->from->first_name;
-$user = $message->from->username;
-$st = str_replace("@","", $chj);
-$join = file_get_contents("https://api.telegram.org/bot".API_KEY."/getChatMember?chat_id=$chj&user_id=".$from_id);
 $chat_id2 = $update->callback_query->message->chat->id;
 $message_id2 = $update->callback_query->message->message_id;
 $data = $update->callback_query->data;
@@ -75,525 +33,673 @@ $id = $message->from->id;
 $text = $message->text;
 $chat_id = $message->chat->id;
 $user = $message->from->username;
-$name = $message->from->first_name;
-$update = json_decode(file_get_contents('php://input'));
-$admin = 7013440973;//ايديك
-mkdir("AllMedia");
-$Dyler = file_get_contents("Dyler.txt");
-$Dyler0 = file_get_contents("Dyler0.txt");
-$Dyler1= file_get_contents("Dyler1.txt");
-$Dyler5 = file_get_contents("Dyler2.txt");
-$Dyler6 = file_get_contents("Dyler3.txt");
-$Dyler20 = json_decode(file_get_contents('php://input'));
-$Dyler18 = $update->message;
-$Dyler13 = $Dyler18->chat->id;
-$Dyler17 = $Dyler18->text;
-$meme = $Dyler20->callback_query->data;
-$Dyler12 = $Dyler20->callback_query->message->chat->id;
-$Dyler14 =  $Dyler20->callback_query->message->message_id;
-$Dyler15 = $Dyler18->from->first_name;
-$Dyler30 = $Dyler20->callback_query->from->first_name; 
-$Dyler16 = $Dyler18->from->username;
-$Dyler11 = $Dyler18->from->id;
-$Dyler2 = explode("\n",file_get_contents("Dyler4.txt"));
-$Dyler3 = count($Dyler2)-1;
-$DylercH = file_get_contents("ch.txt");
-$DylercH1 = explode("\n", $DylercH);
-$DylercH = count($DylercH1) - 1;
-if($Dyler18 && !in_array($Dyler11, $Dyler2)) {
-    file_put_contents("Dyler4.txt", $Dyler11."\n",FILE_APPEND);
-  }
-$Dyler9 = file_get_contents("https://api.telegram.org/bot".API_KEY."/getChatMember?chat_id=$Dyler0&user_id=".$Dyler11);
-$Dyler10 = file_get_contents("https://api.telegram.org/bot".API_KEY."/getChatMember?chat_id=$Dyler1&user_id=".$Dyler11);
-if($Dyler18 && (strpos($Dyler9,'"status":"left"') or strpos($Dyler9,'"Bad Request: USER_ID_INVALID"') or strpos($Dyler9,'"status":"kicked"') or strpos($Dyler10,'"status":"left"') or strpos($Dyler10,'"Bad Request: USER_ID_INVALID"') or strpos($Dyler10,'"status":"kicked"'))!== false){
-bot('sendMessage', [
-'chat_id'=>$Dyler13,
-'text'=>"*⌯ اشترك في القنوات لتتمكن من استعمال البوت : -*
-*⌯ القناة الأولى ~* $Dyler0 
-*⌯ القناة الثانية ~* $Dyler1",'parse_mode' =>"markdown", 
-]);return false;}
-if($Dyler17 == "/admin" and $Dyler11 == $admin){
-bot("sendmessage",[
-"chat_id"=>$Dyler13,
-"text"=>"*━━━━━━━━━━━━━━━━━━━━━━━
-                   『 موهان & IQ 』
-━━━━━━━━━━━━━━━━━━━━━━━
-هلا بك عزيزي في افضل بوت ويب هوك يمكنك التحكم في البوت من خلال الازرار
-━━━━━━━━━━━━━━━━━━━━━━━
-قناة التحديثات ~ @bi_ek0
-المطور ~ @XX44G
-━━━━━━━━━━━━━━━━━━━━━━━*",
-'reply_to_message_id'=>$message->message_id,
- 'parse_mode'=>"MarkDown",
-'disable_web_page_preview'=>'true',
-'reply_markup'=>json_encode([ 
-'inline_keyboard'=>[
-[['text'=>"⌯ اوامر القناة الأولى" ,'callback_data'=>"a"]],
-[['text'=>"⌯ وضع قناة عامة" ,'callback_data'=>"Dyler0"],['text'=>"⌯ حذف قناة عامة"  ,'callback_data'=>"delete11"]],
-[['text'=>"⌯ اوامر القناة الثانية" ,'callback_data'=>"s"]],
-[['text'=>"⌯ وضع قناة عامة" ,'callback_data'=>"Dyler2"],['text'=>"⌯ حذف قناة ثانية" ,'callback_data'=>"delete22"]],
-[['text'=>"⌯ عرض قنوات الاشتراك" ,'callback_data'=>"Dyler4"]],
-[['text'=>"⌯ عرض اوامر الاذاعة" ,'callback_data'=>"DyleriD"]],
-[['text'=>"⌯ اوامر تنبيه دخول المشتركين",'callback_data'=>"d"]],
-[['text'=>"⌯ تفعيل التنبيه" ,'callback_data'=>"Dyler9"],['text'=>"⌯ تعطيل التنبيه" ,'callback_data'=>"Dyler10"]],
-[['text'=>"⌯ اوامر التواصل" ,'callback_data'=>"f"]],
-[['text'=>"⌯ تفعيل التواصل" ,'callback_data'=>"Dyler11"],['text'=>"⌯ تعطيل التواصل" ,'callback_data'=>"Dyler12"]],
-   ] 
-   ])
-]);
-}
-if($meme == "Dyler" ){
-bot('EditMessageText',[
-'chat_id'=>$Dyler12,
-'message_id'=>$Dyler14,
-"text"=>"*━━━━━━━━━━━━━━━━━━━━━━━
-                   『 موهان & IQ 』
-━━━━━━━━━━━━━━━━━━━━━━━
-هلا بك عزيزي في افضل بوت ويب هوك يمكنك التحكم في البوت من خلال الازرار 
-━━━━━━━━━━━━━━━━━━━━━━━
-قناة التحديثات ~ @FROM_PHP
-المطور ~ @XX44G
-━━━━━━━━━━━━━━━━━━━━━━━*", 
- 'parse_mode'=>"MarkDown",
-'disable_web_page_preview'=>'true',
-'reply_markup'=>json_encode([ 
-'inline_keyboard'=>[
-[['text'=>"⌯ اوامر القناة الأولى" ,'callback_data'=>"a"]],
-[['text'=>"⌯ وضع قناة عامة" ,'callback_data'=>"Dyler0"],['text'=>"⌯ حذف قناة عامة"  ,'callback_data'=>"delete11"]],
-[['text'=>"⌯ اوامر القناة الثانية" ,'callback_data'=>"s"]],
-[['text'=>"⌯ وضع قناة ثانية" ,'callback_data'=>"Dyler2"],['text'=>"⌯ حذف قناة ثانية" ,'callback_data'=>"delete22"]],
-[['text'=>"⌯ عرض قنوات الاشتراك" ,'callback_data'=>"Dyler4"]],
-[['text'=>"⌯ عرض اوامر الاذاعة" ,'callback_data'=>"DyleriD"]],
-[['text'=>"⌯ اوامر تنبيه دخول المشتركين",'callback_data'=>"d"]],
-[['text'=>"⌯ تفعيل التنبيه" ,'callback_data'=>"Dyler9"],['text'=>"⌯ تعطيل التنبيه" ,'callback_data'=>"Dyler10"]],
-[['text'=>"⌯ اوامر التواصل" ,'callback_data'=>"f"]],
-[['text'=>"⌯ تفعيل التواصل" ,'callback_data'=>"Dyler11"],['text'=>"⌯ تعطيل التواصل" ,'callback_data'=>"Dyler12"]],
-   ] 
-   ])
-]);
-unlink("Dyler.txt");
-}
-if($meme == "Dyler0"){
-bot('EditMessageText',[
-    'chat_id'=>$Dyler12,
-    'message_id'=>$Dyler14,
-'text'=>"*⌯ حسناً ، الآن قم بإرسال معرف قناتك ليتم وضعه في خدمة الإشتراك الإجباري للقناة الأولى ، 
-#مثال :*
-▪️@musicalgerian",'parse_mode' =>"markdown", 
- 'reply_markup'=>json_encode([ 
-      'inline_keyboard'=>[
-[['text'=>"⌯ Back",'callback_data'=>"Dyler"]],
-]])
-]);
-file_put_contents("Dyler.txt","Dyler0");
-}
-if($Dyler17 and $Dyler == "Dyler0" and $Dyler11 == $admin){
-bot("sendmessage",[
-"chat_id"=>$Dyler13,
-"text"=>"*⌯ تم وضع قناتك للاشتراك الاجباري
-⌯ قناتك *~ $text
-*⌯ قم برفعي مشرفاً فيها *",'parse_mode' =>"markdown", 
- 'reply_markup'=>json_encode([ 
-      'inline_keyboard'=>[
-[['text'=>"⌯ Back",'callback_data'=>"Dyler"]],
-]])
-]);
-file_put_contents("Dyler0.txt","$Dyler17");
-unlink("Dyler.txt");
-}
-if($meme == "delete11"){
-bot('EditMessageText',[
-    'chat_id'=>$Dyler12,
-    'message_id'=>$Dyler14,
-'text'=>"*⌯ هل انت متأكد من حذف قناتك ~* $Dyler0",'parse_mode' =>"markdown", 
-'reply_markup'=>json_encode([
-'inline_keyboard'=>[
-[
-['text'=>"⌯ لا",'callback_data'=>'Dyler'],
-['text'=>"⌯ نعم",'callback_data'=>'Dyler1'],
-]    
-]])
-]);    
-}
-if($meme == "Dyler1"){
-bot('EditMessageText',[
-    'chat_id'=>$Dyler12,
-    'message_id'=>$Dyler14,
-'text'=>"*⌯ تم حذف القناة الأولى ( $Dyler0 ) من الاشتراك الإجباري *", 'parse_mode' =>"markdown", 
- 'reply_markup'=>json_encode([ 
-      'inline_keyboard'=>[
-️[['text'=>"⌯ Back" ,'callback_data'=>"Dyler"]],
-]])
-]);
-unlink("Dyler.txt");
-unlink("Dyler0.txt");
-}
-if($meme == "Dyler2"){
-bot('EditMessageText',[
-    'chat_id'=>$Dyler12,
-    'message_id'=>$Dyler14,
-'text'=>"*⌯ حسناً ، الآن قم بإرسال معرف قناتك ليتم وضعه في خدمة الإشتراك الإجباري للقناة الثانية ، 
-#مثال :*
-▪️@FROM_PHP", 'parse_mode' =>"markdown", 
- 'reply_markup'=>json_encode([ 
-      'inline_keyboard'=>[
-[['text'=>"⌯ Back",'callback_data'=>"Dyler"]],
-]])
-]);
-file_put_contents("Dyler.txt","Dyler1");
-}
-if($Dyler17 and $Dyler == "Dyler1" and $Dyler11 == $admin){
-bot("sendmessage",[
-"chat_id"=>$Dyler13,
-"text"=>"*⌯ تم وضع قناتك للاشتراك الاجباري
-⌯ قناتك *~ $text
-*⌯ قم برفعي مشرفاً فيها *",'parse_mode' =>"markdown",
- 'reply_markup'=>json_encode([ 
-      'inline_keyboard'=>[
-[['text'=>"⌯ Back",'callback_data'=>"Dyler"]],
-]])
-]);
-file_put_contents("Dyler1.txt","$Dyler17");
-unlink("Dyler.txt");
-}
-if($meme == "delete22"){
-bot('EditMessageText',[
-    'chat_id'=>$Dyler12,
-    'message_id'=>$Dyler14,
-'text'=>"*⌯ هل انت متأكد من حذف قناتك ~* $Dyler1", 'parse_mode' =>"markdown", 
-'reply_markup'=>json_encode([
-'inline_keyboard'=>[
-[
-['text'=>"⌯ لا", 'callback_data'=>'Dyler'],
-['text'=>"⌯ نعم",'callback_data'=>'Dyler3'],
-]    
-]])
-]);    
-}
-if($meme == "Dyler3"){
-bot('EditMessageText',[
-    'chat_id'=>$Dyler12,
-    'message_id'=>$Dyler14,
-'text'=>"*⌯ تم حذف القناة الثانية ( $Dyler1 ) من الاشتراك الإجباري*", 'parse_mode' =>"markdown", 
- 'reply_markup'=>json_encode([ 
-      'inline_keyboard'=>[
-[['text'=>"⌯ Back",'callback_data'=>"Dyler"]],
-]])
-]);
-unlink("Dyler.txt");
-unlink("Dyler1.txt");
-}
-if($meme == "DyleriD"){
-bot('EditMessageText',[
-    'chat_id'=>$Dyler12,
-    'message_id'=>$Dyler14,
-'text'=>"*⌯ اختر نوع التوجيه الذي يناسبك من اسفل *", 'parse_mode' =>"markdown", 
-'reply_markup'=>json_encode([ 
-'inline_keyboard'=>[
-[['text'=>"⌯ عدد المشتركين",'callback_data'=>"Dyler7"]],
-[['text'=>"⌯ اذاعة خاص توجيه" ,'callback_data'=>"Dyler5"],['text'=>"⌯ اذاعة خاص رسالة"  ,'callback_data'=>"Dyler6"]],
-[['text'=>"⌯ عدد القنوات ⌯" ,'callback_data'=>"couch"]],
-[['text'=>"⌯ اذاعة قناة توجيه" ,'callback_data'=>"DylercH"],['text'=>"⌯ اذاعة قناة رسالة"  ,'callback_data'=>"DylercH1"]],
-[['text'=>"⌯ رجوع" ,'callback_data'=>"Dyler"]],
-
-]]) 
-]);
-} 
-
-if($meme == "couch"){
-bot('EditMessageText',[
-    'chat_id'=>$Dyler12,
-    'message_id'=>$Dyler14,
-'text'=>"*⌯ ~ عدد القنوات هي [ $DylercH ] قناة*",'parse_mode' =>"markdown",
- 'reply_markup'=>json_encode([ 
-      'inline_keyboard'=>[
-[['text'=>"⌯ Back",'callback_data'=>"Dyler"]],
-]])
-]);
-}
-
-if($meme == "DylercH1"){
-bot('EditMessageText',[
-    'chat_id'=>$Dyler12,
-    'message_id'=>$Dyler14,
-'text'=>"*⌯ ~ أرسل رسالتك وسيتم ارسالها لـ [ $DylercH ] قناة*",'parse_mode' =>"markdown",
- 'reply_markup'=>json_encode([ 
-      'inline_keyboard'=>[
-[['text'=>"⌯ Back",'callback_data'=>"Dyler"]],
-]])
-]);
-file_put_contents("Dyler.txt","DylercH1");
-}
-if($Dyler18 and $Dyler == "DylercH1" and $Dyler11 == $admin){
-bot("sendmessage",[
-"chat_id"=>$Dyler13,
-'text' =>"*⌯ تم ارسال رسالتك لـ $DylercH قناة*",'parse_mode' =>"markdown", 
- 'reply_markup'=>json_encode([ 
-      'inline_keyboard'=>[
-[['text'=>"⌯ Back",'callback_data'=>"Dyler"]],
-]])
-]);
-for($i=0;$i<count($DylercH1); $i++){
-bot('sendMessage', [
-'chat_id'=>$DylercH1[$i],
-'text'=>$text,
-]);
-unlink("Dyler.txt");
-}
-}
-
-
-if($meme == "DylercH"){
-bot('EditMessageText',[
-    'chat_id'=>$Dyler12,
-    'message_id'=>$Dyler14,
-'text'=>"*⌯ ~ أرسل رسالتك وسيتم توجيهها لـ [ $DylercH ] قناة*",'parse_mode' =>"markdown",
- 'reply_markup'=>json_encode([ 
-      'inline_keyboard'=>[
-[['text'=>"⌯ Back",'callback_data'=>"Dyler"]],
-]])
-]);
-file_put_contents("Dyler.txt","DylercH");
-}
-if($Dyler18 and $Dyler == "DylercH" and $Dyler11 == $admin){
-bot("sendmessage",[
-"chat_id"=>$Dyler13,
-'text' =>"*⌯ تم توجيه رسالتك لـ $DylercH قناة*",'parse_mode' =>"markdown", 
- 'reply_markup'=>json_encode([ 
-      'inline_keyboard'=>[
-[['text'=>"⌯ Back",'callback_data'=>"Dyler"]],
-]])
-]);
-for($i=0;$i<count($DylercH1); $i++){
-bot('forwardMessage', [
-'chat_id'=>$DylercH1[$i],
-'from_chat_id'=>$Dyler11,
-'message_id'=>$Dyler18->message_id
-]);
-unlink("Dyler.txt");
-}
-}
-
-if($meme == "Dyler4"){
-bot('EditMessageText',[
-    'chat_id'=>$Dyler12,
-    'message_id'=>$Dyler14,
-'text'=>"*⌯  هذه هي قائمة قنوات الأشتراك الاجباري ،
-⌯ القناة الاولى ،  $Dyler0
-⌯ القناة الثانية ،  $Dyler1*",'parse_mode' =>"markdown", 
- 'reply_markup'=>json_encode([ 
-      'inline_keyboard'=>[
-[['text'=>"⌯ Back",'callback_data'=>"Dyler"]],
-]])
-]);
-unlink("Dyler.txt");
-}
-if($meme == "Dyler5"){
-bot('EditMessageText',[
-    'chat_id'=>$Dyler12,
-    'message_id'=>$Dyler14,
-'text'=>"*⌯ ~ أرسل رسالتك وسيتم توجيهها لـ [ $Dyler3 ] مشترك*",'parse_mode' =>"markdown",
- 'reply_markup'=>json_encode([ 
-      'inline_keyboard'=>[
-[['text'=>"⌯ Back",'callback_data'=>"Dyler"]],
-]])
-]);
-file_put_contents("Dyler.txt","Dyler2");
-}
-if($Dyler18 and $Dyler == "Dyler2" and $Dyler11 == $admin){
-bot("sendmessage",[
-"chat_id"=>$Dyler13,
-'text' =>"*⌯ تم توجيه رسالتك لـ $Dyler3 مشترك*",'parse_mode' =>"markdown", 
- 'reply_markup'=>json_encode([ 
-      'inline_keyboard'=>[
-[['text'=>"⌯ Back",'callback_data'=>"Dyler"]],
-]])
-]);
-for($i=0;$i<count($Dyler2); $i++){
-bot('forwardMessage', [
-'chat_id'=>$Dyler2[$i],
-'from_chat_id'=>$Dyler11,
-'message_id'=>$Dyler18->message_id
-]);
-unlink("Dyler.txt");
-}
-}
-if($meme == "Dyler6"){
-bot('EditMessageText',[
-    'chat_id'=>$Dyler12,
-    'message_id'=>$Dyler14,
-'text'=>"*⌯ ارسل رسالتك ليتم نشرها لـ $Dyler3 مشترك*",'parse_mode' =>"markdown", 
- 'reply_markup'=>json_encode([ 
-      'inline_keyboard'=>[
-[['text'=>"⌯ Back",'callback_data'=>"Dyler"]],
-]])
-]);
-file_put_contents("Dyler.txt","Dyler3");
-}
-if($Dyler17 and $Dyler == "Dyler3" and $Dyler11 == $admin){
-bot("sendmessage",[
-"chat_id"=>$Dyler13,
-"text"=>"*⌯ تم نشر رسالتك لـ $Dyler3 مشترك*",'parse_mode' =>"markdown", 
- 'reply_markup'=>json_encode([ 
-      'inline_keyboard'=>[
-[['text'=>"⌯ Back",'callback_data'=>"Dyler"]],
-]])
-]);
-for($i=0;$i<1000; $i++){
-bot('sendMessage', [
-'chat_id'=>$Dyler2[$i],
-'text'=>$Dyler17
-]);
-unlink("Dyler.txt");
-}
-}
-
-
-if($meme == "Dyler7"){
-bot('EditMessageText',[
-    'chat_id'=>$Dyler12,
-    'message_id'=>$Dyler14,
-'text'=>"*⌯ عدد مشتركين البوت هو ~ $Dyler3 مشتركاً*",'parse_mode' =>"markdown", 
- 'reply_markup'=>json_encode([ 
-      'inline_keyboard'=>[
-[['text'=>"⌯ Back",'callback_data'=>"Dyler"]],
-]])
-]);
-unlink("Dyler.txt");
-}
-if($meme == "Dyler9"){
-bot('EditMessageText',[
-    'chat_id'=>$Dyler12,
-    'message_id'=>$Dyler14,
-'text'=>"*⌯ تم تفعيل اشعار الدخول*", 'parse_mode' =>"markdown", 
- 'reply_markup'=>json_encode([ 
-      'inline_keyboard'=>[
-[['text'=>"⌯ Back" ,'callback_data'=>"Dyler"]],
-]])
-]);
-file_put_contents("Dyler2.txt","Dyler");
-}
-if($Dyler17 == "/start" and $Dyler5 == "Dyler" and $Dyler11 != $admin and $Dyler16 != null){
-bot("sendmessage",[
-"chat_id"=>$admin,
-"text"=>"*⌯  عضو جديد قام بالدخول الى البوت*
-*⌯  الاسم ~ *[$Dyler15](tg://user?id=$from_id) 
-*⌯ المعرف ~ *[@$Dyler16](tg://user?id=$from_id) 
-*⌯ الايدي ~ *[$Dyler11](tg://user?id=$from_id) 
-*⌯ اصبح عدد المشتركين ~ { $Dyler3 }*",
- 'parse_mode'=>"MarkDown",
-'disable_web_page_preview'=>'true',
-]);
-}elseif($Dyler17 == "/start" and $Dyler5 == "Dyler" and $Dyler11 != $admin and $Dyler16 == null){
-bot("sendmessage",[
-"chat_id"=>$admin,
-"text"=>"*⌯  عضو جديد قام بالدخول الى البوت*
-*⌯  الاسم ~ *[$Dyler15](tg://user?id=$from_id) 
-*⌯ المعرف ~ *[لايمتلك معرف](tg://user?id=$from_id) 
-*⌯ الايدي ~ *[$Dyler11](tg://user?id=$from_id) 
-*⌯ اصبح عدد المشتركين ~ { $Dyler3 }*",
- 'parse_mode'=>"MarkDown",
-'disable_web_page_preview'=>'true',
-]);
-}
-
-
-if($meme == "Dyler10"){
-bot('EditMessageText',[
-    'chat_id'=>$Dyler12,
-    'message_id'=>$Dyler14,
-'text'=>"*⌯ تم تعطيل اشعار الدخول*" ,'parse_mode' =>"markdown", 
- 'reply_markup'=>json_encode([ 
-      'inline_keyboard'=>[
-[['text'=>"⌯ Back" ,'callback_data'=>"Dyler"]],
-]])
-]);
-unlink("Dyler.txt");
-unlink("Dyler2.txt");
-}
-if($meme == "Dyler11"){
-bot('EditMessageText',[
-    'chat_id'=>$Dyler12,
-    'message_id'=>$Dyler14,
-'text'=>"*⌯ تم تفعيل التواصل*", 'parse_mode' =>"markdown", 
- 'reply_markup'=>json_encode([ 
-      'inline_keyboard'=>[
-[['text'=>"⌯ Back" ,'callback_data'=>"Dyler"]],
-]])
-]);
-file_put_contents("Dyler3.txt","Dyler");
-}
-if($Dyler18 and $Dyler6 == "Dyler" and $Dyler11 != $admin){
-bot('forwardMessage', [
-'chat_id'=>$admin,
-'from_chat_id'=>$Dyler11,
-'message_id'=>$Dyler18->message_id
-]);
-}
-if($Dyler18 and $Dyler6 == "Dyler" and $Dyler11 == $admin){
-bot('sendMessage',[
-'chat_id'=>$Dyler18->reply_to_message->forward_from->id,
-    'text'=>$Dyler17,
-    ]);
-}
-if($meme == "Dyler12"){
-bot('EditMessageText',[
-    'chat_id'=>$Dyler12,
-    'message_id'=>$Dyler14,
-'text'=>"*⌯ تم تعطيل التواصل*", 'parse_mode' =>"markdown", 
- 'reply_markup'=>json_encode([ 
-      'inline_keyboard'=>[
-[['text'=>"⌯ Back" ,'callback_data'=>"Dyler"]],
-]])
-]);
-unlink("Dyler.txt");
-unlink("Dyler3.txt");
-}
-$update = json_decode(file_get_contents('php://input'));
 $message = $update->message;
 $chat_id = $message->chat->id;
-mkdir("data/$from_id");
-$message_id = $message->message_id;
-$from_id = $message->from->id;
 $text = $message->text;
-$ali = file_get_contents("data/$from_id/kro_iraq");
-$ADMIN = 6856948123;
-$to =  file_get_contents("data/$from_id/token.txt");
-$url =  file_get_contents("data/$from_id/url.txt");
-if($text == "/start"){
-    if (!file_exists("data/$from_id/kro_iraq")) {
-        mkdir("data/$from_id");
-        file_put_contents("data/$from_id/kro_iraq","none");
-        $myfile2 = fopen("Member.txt", "a") or die("Unable to open file!");
-        fwrite($myfile2, "$from_id\n");
-        fclose($myfile2);
-    }
-    
-    sendAction($chat_id, 'typing');
-    bot('sendPhoto',[
-        'chat_id'=>$chat_id,
-        'photo'=>"Https://viscovbt.alwaysdata.net/Webhook/ty.jpg",
-        'caption'=>"*
-━━━━━━━━━━━━━━━━━━━━━━━
-                   『 موهان & IQ 』
-━━━━━━━━━━━━━━━━━━━━━━━
-هلا بك عزيزي في افضل بوت ويب هوك يمكنك التحكم في البوت من خلال الازرار 
-━━━━━━━━━━━━━━━━━━━━━━━
-قناة التحديثات ~ @bi_ek0
-المطور ~ @XX44G
-━━━━━━━━━━━━━━━━━━━━━━━
-*",
-        'parse_mode'=>'MarkDown',
-        'reply_markup'=>json_encode([
-            'resize_keyboard'=>true,
-            'keyboard'=>[
-                [['text'=>"عمل ويب هوك ✅"],
-                ['text'=>"حذف ويب هوك ❌"]],
-                [['text'=>"معلومات التوكن 🔎"]],
-                [['text'=>"قياس السرعة ⚡"]],
-            ],
-        ]),
-    ]);
+$chat_id2 = $update->callback_query->message->chat->id;
+$message_id = $update->callback_query->message->message_id;
+$data = $update->callback_query->data;
+$name = $update->message->from->first_name;
+$from_id = $update->message->from->id;
+####لوحة الادمن###
+$admin = "7013440973"; ###ايديك###
+$sudo = array("1705301173","0000","0000");
+$AMR = file_get_contents("AMR.txt");
+$AMR0 = file_get_contents("AMR0.txt");
+$AMR1= file_get_contents("AMR1.txt");
+$AMR5 = file_get_contents("AMR2.txt");
+$AMR6 = file_get_contents("AMR3.txt");
+$AMR20 = json_decode(file_get_contents('php://input'));
+$AMR18 = $update->message;
+$AMR13 = $AMR18->chat->id;
+$AMR17 = $AMR18->text;
+$AMRD = $AMR20->callback_query->data;
+$AMR12 = $AMR20->callback_query->message->chat->id;
+$AMR14 =  $AMR20->callback_query->message->message_id;
+$AMR15 = $AMR18->from->first_name;
+$AMR16 = $AMR18->from->username;
+$AMR11 = $AMR18->from->id;
+$AMR2 = explode("\n",file_get_contents("AMR4.txt"));
+$AMR3 = count($AMR2)-1;
+if ($AMR18 && !in_array($AMR11, $AMR2)) {
+file_put_contents("AMR4.txt", $AMR11."\n",FILE_APPEND);
+  }
+$AMR9 = file_get_contents("https://api.telegram.org/bot".API_KEY."/getChatMember?chat_id=$AMR0&user_id=".$AMR11);
+$AMR10 = file_get_contents("https://api.telegram.org/bot".API_KEY."/getChatMember?chat_id=$AMR1&user_id=".$AMR11);
+if($AMR18 && (strpos($AMR9,'"status":"left"') or strpos($AMR9,'"Bad Request: USER_ID_INVALID"') or strpos($AMR9,'"status":"kicked"') or strpos($AMR10,'"status":"left"') or strpos($AMR10,'"Bad Request: USER_ID_INVALID"') or strpos($AMR10,'"status":"kicked"'))!== false){
+bot('sendMessage', [
+'chat_id'=>$AMR13,
+'text'=>'- ▫️ عذراً عزيزي  ، 🔰
+▪️ يجب عليك الإشتراك في قناة المطور أولاً ⚜️؛
+
+- اشترك ثم ارسل { /start }📛!
+
+'.$AMR0.'
+'.$AMR1,
+]);return false;}
+if($text == "/admin" and in_array($from_id,$sudo)){
+bot("sendmessage",[
+"chat_id"=>$AMR13,
+"text"=>"
+~ اهلا بك في لوحه الأدمن الخاصه بالبوت 🤖
+
+~ يمكنك التحكم في جميع اوامر البوت من هنا 
+------------------------------------
+",
+ 'parse_mode'=>"MarkDown",
+'disable_web_page_preview'=>'true',
+'reply_markup'=>json_encode([ 
+'inline_keyboard'=>[
+[['text'=>'تعين قناة اشتراك اجباري ¹ 📢' ,'callback_data'=>"AMR"]],
+[['text'=>'وضع قناة الاشتراك ¹★' ,'callback_data'=>"AMR0"],['text'=>'حذف قناة الاشتراك ¹★' ,'callback_data'=>"delete11"]],
+[['text'=>'تعين قناة اشتراك اجباري ² 📢' ,'callback_data'=>"AMR"]],
+[['text'=>'وضع قناة الاشتراك ²★' ,'callback_data'=>"AMR2"],['text'=>'حذف قناة الاشتراك ²★' ,'callback_data'=>"delete22"]],
+[['text'=>'عرض قنوات الإشتراك 💎' ,'callback_data'=>"AMR4"]],
+[['text'=>'قسم توجيه الرسال من الاعضاء 🔙' ,'callback_data'=>"AMR"]],
+[['text'=>'تفعيل التوجيه 🔙' ,'callback_data'=>"AMR11"],['text'=>'قفل التوجيه ❎' ,'callback_data'=>"AMR12"]],
+[['text'=>'إذاعة توجيه 🔄' ,'callback_data'=>"AMR5"],['text'=>'إذاعة عامه 🔱' ,'callback_data'=>"AMR6"]],
+[['text'=>'احصائيات البوت 👤' ,'callback_data'=>"AMR7"]],
+] 
+])
+]);
+}
+if($AMRD == "AMR" ){
+bot('EditMessageText',[
+'chat_id'=>$AMR12,
+'message_id'=>$AMR14,
+"text"=>"
+~ اهلا بك في لوحه الأدمن الخاصه بالبوت 🤖
+
+~ يمكنك التحكم في جميع اوامر البوت من هنا 
+------------------------------------
+",
+ 'parse_mode'=>"MarkDown",
+'disable_web_page_preview'=>'true',
+'reply_markup'=>json_encode([ 
+'inline_keyboard'=>[
+[['text'=>'تعين قناة اشتراك اجباري ¹ 📢' ,'callback_data'=>"AMR"]],
+[['text'=>'وضع قناة الاشتراك ¹★' ,'callback_data'=>"AMR0"],['text'=>'حذف قناة الاشتراك ¹★' ,'callback_data'=>"delete11"]],
+[['text'=>'تعين قناة اشتراك اجباري ² 📢' ,'callback_data'=>"AMR"]],
+[['text'=>'وضع قناة الاشتراك ²★' ,'callback_data'=>"AMR2"],['text'=>'حذف قناة الاشتراك ²★' ,'callback_data'=>"delete22"]],
+[['text'=>'عرض قنوات الإشتراك 💎' ,'callback_data'=>"AMR4"]],
+[['text'=>'قسم توجيه الرسال من الاعضاء 🔙' ,'callback_data'=>"AMR"]],
+[['text'=>'تفعيل التوجيه 🔙' ,'callback_data'=>"AMR11"],['text'=>'قفل التوجيه ❎' ,'callback_data'=>"AMR12"]],
+[['text'=>'إذاعة توجيه 🔄' ,'callback_data'=>"AMR5"],['text'=>'إذاعة عامه 🔱' ,'callback_data'=>"AMR6"]],
+[['text'=>'احصائيات البوت 👤' ,'callback_data'=>"AMR7"]],
+] 
+])
+]);
+unlink("AMR.txt");
+}
+if($AMRD == "AMR0"){
+bot('EditMessageText',[
+'chat_id'=>$AMR12,
+'message_id'=>$AMR14,
+'text'=>'- حسناً ، الآن قم بإرسال معرف قناتك من ثم  قم برفع البوت ادمن في القناة ',
+ 'reply_markup'=>json_encode([ 
+'inline_keyboard'=>[
+[['text'=>'🔙' ,'callback_data'=>"AMR"]],
+]])
+]);
+file_put_contents("AMR.txt","AMR0");
+}
+if($AMR17 and $AMR == "AMR0" and $AMR11 == $admin){
+bot("sendmessage",[
+"chat_id"=>$AMR13,
+"text"=>'لقد تم وضع القناة بنجاح ✅',
+ 'reply_markup'=>json_encode([ 
+'inline_keyboard'=>[
+[['text'=>'🔙' ,'callback_data'=>"AMR"]],
+]])
+]);
+file_put_contents("AMR0.txt","$AMR17");
+unlink("AMR.txt");
+}
+if($AMRD == "delete11"){
+bot('EditMessageText',[
+'chat_id'=>$AMR12,
+'message_id'=>$AMR14,
+'text'=>'~ هل أنت متأكد من أنك تريد حذف القناة من الإشتراك الإجباري ؟؟؟
+',
+'reply_markup'=>json_encode([
+'inline_keyboard'=>[
+[
+['text'=>'• لا ، ❎', 'callback_data'=>'AMR'],
+['text'=>'• نعم ، ✅','callback_data'=>'AMR1'],
+]
+]])
+]);
+}
+if($AMRD == "AMR1"){
+bot('EditMessageText',[
+'chat_id'=>$AMR12,
+'message_id'=>$AMR14,
+'text'=>'- لقد تم حذف القناة  من الإشتراك الإجباري بنجاح 📮',
+ 'reply_markup'=>json_encode([ 
+'inline_keyboard'=>[
+️[['text'=>'🔙' ,'callback_data'=>"AMR"]],
+]])
+]);
+unlink("AMR.txt");
+unlink("AMR0.txt");
+}
+if($AMRD == "AMR2"){
+bot('EditMessageText',[
+'chat_id'=>$AMR12,
+'message_id'=>$AMR14,
+'text'=>'- حسناً ، الآن قم بإرسال معرف قناتك من ثم  قم برفع البوت ادمن في القناة ',
+ 'reply_markup'=>json_encode([ 
+'inline_keyboard'=>[
+[['text'=>'🔙' ,'callback_data'=>"AMR"]],
+]])
+]);
+file_put_contents("AMR.txt","AMR1");
+}
+if($AMR17 and $AMR == "AMR1" and $AMR11 == $admin){
+bot("sendmessage",[
+"chat_id"=>$AMR13,
+"text"=>'لقد تم وضع القناة بنجاح ✅',
+ 'reply_markup'=>json_encode([ 
+'inline_keyboard'=>[
+[['text'=>'🔙' ,'callback_data'=>"AMR"]],
+]])
+]);
+file_put_contents("AMR1.txt","$AMR17");
+unlink("AMR.txt");
+}
+if($AMRD == "delete22"){
+bot('EditMessageText',[
+'chat_id'=>$AMR12,
+'message_id'=>$AMR14,
+'text'=>'~ هل أنت متأكد من أنك تريد حذف القناة من الإشتراك الإجباري ؟؟؟',
+'reply_markup'=>json_encode([
+'inline_keyboard'=>[
+[
+['text'=>'• لا ، ❎', 'callback_data'=>'AMR'],
+['text'=>'• نعم ، ✅','callback_data'=>'AMR3'],
+]
+]])
+]);
+}
+if($AMRD == "AMR3"){
+bot('EditMessageText',[
+'chat_id'=>$AMR12,
+'message_id'=>$AMR14,
+'text'=>'- لقد تم حذف القناة  من الإشتراك الإجباري بنجاح 📮',
+ 'reply_markup'=>json_encode([ 
+'inline_keyboard'=>[
+[['text'=>'🔙' ,'callback_data'=>"AMR"]],
+]])
+]);
+unlink("AMR.txt");
+unlink("AMR1.txt");
+}
+if($AMRD == "AMR4"){
+bot('EditMessageText',[
+'chat_id'=>$AMR12,
+'message_id'=>$AMR14,
+'text'=>"
+هلا بك عزيزي 
+قنوات الاشتراك الاجباري
+ـــــــــــــــــــــــــــــــــــــــــــــــــــــــ
+قناة ¹ => $AMR0 √
+قناة ² => $AMR1 √
+ـــــــــــــــــــــــــــــــــــــــــــــــــــــــ
+",
+ 'reply_markup'=>json_encode([ 
+'inline_keyboard'=>[
+[['text'=>'🔙' ,'callback_data'=>"AMR"]],
+]])
+]);
+unlink("AMR.txt");
+}
+#@amrakl
+if($AMRD == "AMR5"){
+bot('EditMessageText',[
+'chat_id'=>$AMR12,
+'message_id'=>$AMR14,
+'text'=>"قم برسال التوجيه الان 💚",
+ 'reply_markup'=>json_encode([ 
+'inline_keyboard'=>[
+[['text'=>'🔙' ,'callback_data'=>"AMR"]],
+]])
+]);
+file_put_contents("AMR.txt","AMR2");
+}
+if($AMR18 and $AMR == "AMR2" and $AMR11 == $admin){
+bot("sendmessage",[
+"chat_id"=>$AMR13,
+"text"=>"تم توجيه الرساله ",
+ 'reply_markup'=>json_encode([ 
+'inline_keyboard'=>[
+[['text'=>'🔙' ,'callback_data'=>"AMR"]],
+]])
+]);
+for($i=0;$i<count($AMR2); $i++){
+bot('forwardMessage', [
+'chat_id'=>$AMR2[$i],
+'from_chat_id'=>$AMR11,
+'message_id'=>$AMR18->message_id
+]);
+unlink("AMR.txt");
+}
+}
+if($AMRD == "AMR6"){
+bot('EditMessageText',[
+'chat_id'=>$AMR12,
+'message_id'=>$AMR14,
+'text'=>"قم برسال المراد الاذاعه له الان 💛",
+ 'reply_markup'=>json_encode([ 
+'inline_keyboard'=>[
+[['text'=>'🔙' ,'callback_data'=>"AMR"]],
+]])
+]);
+file_put_contents("AMR.txt","AMR3");
+}
+if($AMR17 and $AMR == "AMR3" and $AMR11 == $admin){
+bot("sendmessage",[
+"chat_id"=>$AMR13,
+"text"=>'تم النشر بنجاح  ✅',
+ 'reply_markup'=>json_encode([ 
+'inline_keyboard'=>[
+[['text'=>'🔙' ,'callback_data'=>"AMR"]],
+]])
+]);
+for($i=0;$i<count($AMR2); $i++){
+bot('sendMessage', [
+'chat_id'=>$AMR2[$i],
+'text'=>$AMR17
+]);
+unlink("AMR.txt");
+}
+}
+if($AMRD == "AMR7"){
+bot('EditMessageText',[
+'chat_id'=>$AMR12,
+'message_id'=>$AMR14,
+'text'=>"هلا بك في قسم الاحصايات  💛
+ــــــــــــــــــــ؍.َِ⇣𖤍🖤ء͡⇣ــــــــــــــــــ
+
+ عدد مشتركين البوت  [ $AMR3 ]
+
+حاله سرعه البوت -: 100%
+ــــــــــــــــــــ؍.َِ⇣𖤍🖤ء͡⇣ــــــــــــــــــ",
+ 'reply_markup'=>json_encode([ 
+'inline_keyboard'=>[
+[['text'=>'🔙' ,'callback_data'=>"AMR"]],
+]])
+]);
+unlink("AMR.txt");
+}
+
+if($AMRD == "AMR10"){
+bot('EditMessageText',[
+'chat_id'=>$AMR12,
+'message_id'=>$AMR14,
+'text'=>'تم تنفيذ الامر ❎',
+ 'reply_markup'=>json_encode([ 
+'inline_keyboard'=>[
+[['text'=>'🔙' ,'callback_data'=>"AMR"]],
+]])
+]);
+unlink("AMR.txt");
+unlink("AMR2.txt");
+}
+if($AMRD == "AMR11"){
+bot('EditMessageText',[
+'chat_id'=>$AMR12,
+'message_id'=>$AMR14,
+'text'=>'تم تنفيذ الامر ✅',
+ 'reply_markup'=>json_encode([ 
+'inline_keyboard'=>[
+[['text'=>'🔙' ,'callback_data'=>"AMR"]],
+]])
+]);
+file_put_contents("AMR3.txt","AMR");
+}
+if($AMR18 and $AMR6 == "AMR" and $AMR11 != $admin){
+bot('forwardMessage', [
+'chat_id'=>$admin,
+'from_chat_id'=>$AMR11,
+'message_id'=>$AMR18->message_id
+]);
+}
+if($AMR18 and $AMR6 == "AMR" and $AMR11 == $admin){
+bot('sendMessage',[
+'chat_id'=>$AMR18->reply_to_message->forward_from->id,
+'text'=>$AMR17,
+]);
+}
+if($AMRD == "AMR12"){
+bot('EditMessageText',[
+'chat_id'=>$AMR12,
+'message_id'=>$AMR14,
+'text'=>'تم تنفيذ الامر ❎',
+ 'reply_markup'=>json_encode([ 
+'inline_keyboard'=>[
+[['text'=>'🔙' ,'callback_data'=>"AMR"]],
+]])
+]);
+unlink("AMR.txt");
+unlink("AMR3.txt");
+}
+
+$update = json_decode(file_get_contents('php://input'));
+
+if ($update->message) {
+    $message = $update->message;
+    $message_id = $update->message->message_id;
+    $username = $message->from->username;
+    $chat_id = $message->chat->id;
+    $title = $message->chat->title;
+    $text = $message->text;
+    $user = $message->from->username;
+    $name = $message->from->first_name;
+    $from_id = $message->from->id;
+}
+
+$UploadEr = json_decode(file_get_contents("UploadEr/UploadEr.json"), true);
+
+
+if ($update->callback_query) {
+    $data = $update->callback_query->data;
+    $chat_id = $update->callback_query->message->chat->id;
+    $title = $update->callback_query->message->chat->title;
+    $message_id = $update->callback_query->message->message_id;
+    $name = $update->callback_query->message->chat->first_name;
+    $user = $update->callback_query->message->chat->username;
+    $from_id = $update->callback_query->from->id;
+}
+//تخزينات الاذاعة//
+echo "تم تشغيل البوت ✅";
+$update = json_decode(file_get_contents('php://input'));
+$message= $update->message;
+$text = $message->text;
+$chat_id= $message->chat->id;
+$name = $message->from->first_name;
+$user = $message->from->username;
+$message_id = $update->message->message_id;
+$from_id = $update->message->from->id;
+$a = strtolower($text);
+$message = $update->message;
+$chat_id = $message->chat->id;
+$text = $message->text;
+$chat_id2 = $update->callback_query->message->chat->id;
+$message_id = $update->callback_query->message->message_id;
+$data = $update->callback_query->data;
+$from_id = $message->from->id;
+$msg = file_get_contents("msg.php");
+
+$users = explode("\n",file_get_contents("BEDO/arslan.json"));
+
+if($message){
+if(!in_array($from_id,$users)){
+file_put_contents("BEDO/arslan.json",$from_id."\n",FILE_APPEND);}}
+
+$tc = $message->chat->type;
+$arslan09 = json_decode(file_get_contents("BEDO/arslan09.json"),true);
+$suodo = $arslan09['sudoarr'];
+$al = $arslan09['addmessage'];
+$ab = $arslan09['messagee'];
+$xll = $al + $ab;
+if($message and $from_id !== $admin){
+$arslan09['messagee'] = $arslan09['messagee']+1;
+file_put_contents("BEDO/arslan09.json",json_encode($arslan09,32|128|265));
+}
+if($message and $from_id == $admin){
+$arslan09['addmessage'] = $arslan09['addmessage']+1;
+file_put_contents("BEDO/arslan09.json",json_encode($arslan09,32|128|265));
+}
+
+$all = count($users)-1;
+//---------------------------//
+
+//بداية كود الحظر//
+$sudo = array("1705301173");
+
+$get_ban=file_get_contents('sudo/ban.txt');
+$ban =explode("\n",$get_ban);
+
+$member = explode("\n",file_get_contents("sudo/member.txt"));
+$cunte = count($member)-1;
+$ban = explode("\n",file_get_contents("sudo/ban.txt"));
+$countban = count($ban);
+
+if($message  and in_array($from_id,$ban)){
+bot('sendMessage',[
+'chat_id'=>$chat_id,
+'text'=>"• لقد تم حظرك من البوت ❌
+",
+]);return false;}
+
+$reply = $message->reply_to_message->message_id;
+$rep = $message->reply_to_message->forward_from; 
+
+if($countban<=0){
+$countban="لايوجد محظورين";
+}
+function sendwataw($chat_id,$message_id){
+
+$infosudo = json_decode(file_get_contents("sudo.json"),true);
+$fwrmember=$infosudo["info"]["fwrmember"];
+$tnbih=$infosudo["info"]["tnbih"];
+$silk=$infosudo["info"]["silk"];
+$allch=$infosudo["info"]["allch"];
+$member = explode("\n",file_get_contents("sudo/member.txt"));
+$cunte = count($member)-1;
+$ban = explode("\n",file_get_contents("sudo/ban.txt"));
+$countban = count($ban)-1;
+if($countban<=0){
+$countban="لايوجد محظورين";
+}
+}
+
+@$infosudo = json_decode(file_get_contents("sudo.json"),true);
+$sudoamr= $infosudo["info"]["amr"];
+if($data == "start"){
+$infosudo["info"]["amr"]="start";
+file_put_contents("sudo.json", json_encode($infosudo));
+}
+
+$usrbot = bot("getme")->result->username;
+$emoji = "➡️
+🎟️
+↪️
+🔘
+🏠";
+
+$emoji = explode("\n", $emoji);
+$b = $emoji[rand(0, 4)];
+$NamesBACK = "رجوع $b";
+
+define("USR_BOT", $usrbot);
+mkdir("Host");
+mkdir("BEDO");
+mkdir("sudo");
+
+
+$update = json_decode(file_get_contents('php://input'));
+
+if ($update->message) {
+    $message = $update->message;
+    $message_id = $update->message->message_id;
+    $username = $message->from->username;
+    $chat_id = $message->chat->id;
+    $title = $message->chat->title;
+    $text = $message->text;
+    $user = $message->from->username;
+    $name = $message->from->first_name;
+    $from_id = $message->from->id;
+}
+
+$UploadEr = json_decode(file_get_contents("UploadEr/UploadEr.json"), true);
+
+
+if ($update->callback_query) {
+    $data = $update->callback_query->data;
+    $chat_id = $update->callback_query->message->chat->id;
+    $title = $update->callback_query->message->chat->title;
+    $message_id = $update->callback_query->message->message_id;
+    $name = $update->callback_query->message->chat->first_name;
+    $user = $update->callback_query->message->chat->username;
+    $from_id = $update->callback_query->from->id;
+}
+
+	
+$update = json_decode(file_get_contents('php://input'));
+
+if ($update->message) {
+    $message = $update->message;
+    $message_id = $update->message->message_id;
+    $username = $message->from->username;
+    $chat_id = $message->chat->id;
+    $title = $message->chat->title;
+    $text = $message->text;
+    $user = $message->from->username;
+    $name = $message->from->first_name;
+    $from_id = $message->from->id;
+}
+
+$Host = json_decode(file_get_contents("Host/Host.json"), true);
+
+
+if ($update->callback_query) {
+    $data = $update->callback_query->data;
+    $chat_id = $update->callback_query->message->chat->id;
+    $title = $update->callback_query->message->chat->title;
+    $message_id = $update->callback_query->message->message_id;
+    $name = $update->callback_query->message->chat->first_name;
+    $user = $update->callback_query->message->chat->username;
+    $from_id = $update->callback_query->from->id;
+}
+
+//——————————————————//
+$MTAWR = "XX44G";  //معرفك
+$admin = "7013440973";  //ايديك//
+//——————————————————//
+
+//خزن الاشتراك//
+if($Host['hui'] == null) {
+$hui ="لا يوجد";
+}else{
+$hui = $Host['hui'];
+}
+
+//دخول الاعضاء//
+$mem = explode("\n",file_get_contents("mem.txt"));
+$je = file_get_contents("mem.txt");
+$count = explode("\n",$je);
+$SAl = count($count) -1;
+if($username != null){
+$sf = "@$username";
+}else
+if($username == null){
+$sf = "لا يوجد معرف";
+}
+if($message and !in_array($from_id,$mem)){
+file_put_contents("mem.txt",$from_id . "\n" ,FILE_APPEND);
+$SAl = $SAl + 1;
+bot('sendmessage',[
+'chat_id'=>$admin,
+'text'=>"
+*• تم دخول شخص جديد الى البوت 💀*
+    •–––––––––––––––––––––––––––––––•
+
+• معلومات الشخص 📜 :
+
+- الاسم : [$name](tg://user?id=$from_id)
+- المعرف : $sf
+- الايدي : [$from_id](tg://user?id=$from_id)
+
+    •–––––––––––––––––––––––––––––––•
+• عدد الاعضاء الكلي :* $SAl 📊*
+",
+'parse_mode'=>"Markdown",
+]);
+}
+
+//تشغيل وايقاف البوت//
+$madey = json_decode(file_get_contents("madey.json"),true);
+if(!$madey['bot']){
+$madey['bot'] = "on";
+file_put_contents("madey.json",json_encode($madey,32|128|265));
+}
+if($madey['bot'] == "on"){
+$xm = "البوت يعمل ✅️";
+}else{
+$xm = "البوت متوقف ❌️";
+}
+if($message and $madey['bot'] == "off" and $from_id != $admin){
+bot('sendMessage', [
+'chat_id'=>$chat_id,
+'text'=>"
+• البوت تحت الصيانة 🛠 •
+",
+'parse_mode'=>'markdown',
+]);return false;
+}
+if($data == "on"){
+bot('EditMessageText',[
+'chat_id'=>$chat_id,
+'message_id'=>$message_id,
+'text'=>"
+
+• تم تشغيل البوت بنجاح ✅️
+",
+'parse_mode'=>"markdown",
+'reply_markup'=>json_encode([
+'inline_keyboard'=>[
+[['text'=>"رجوع ➡️ ",'callback_data'=>"Thkom" ]],
+]])
+]);
+$madey['bot'] = "on";
+file_put_contents("madey.json",json_encode($madey,32|128|265));
+}
+if($data == "off"){
+bot('EditMessageText',[
+'chat_id'=>$chat_id,
+'message_id'=>$message_id,
+'text'=>"
+
+• تم ايقاف البوت بنجاح ❌️
+",
+'parse_mode'=>"markdown",
+'reply_markup'=>json_encode([
+'inline_keyboard'=>[
+[['text'=>"رجوع ➡️ ",'callback_data'=>"Thkom" ]],
+]])
+]);
+$madey['bot'] = "off";
+file_put_contents("madey.json",json_encode($madey,32|128|265));
+}
+
+
+$update = json_decode(file_get_contents('php://input'));
+if(isset($update->message)){
+$message = $update->message;
+$message_id = $update->message->message_id;
+$chat_id = $message->chat->id;
+$text = $message->text;
+$user = $message->from->username;
+$name = $message->from->first_name;
+$name1 = $message->from->last_name;
+$from_id = $message->from->id;
+$tc = $message->chat->type;
+$forward = $update->message->forward_from->id;
+}
+if(isset($update->callback_query)){
+$data = $update->callback_query->data;
+$chat_id = $update->callback_query->message->chat->id;
+$message_id = $update->callback_query->message->message_id;
+$name = $update->callback_query->message->chat->first_name;
+$user = $update->callback_query->message->chat->username;
+$from_id = $chat_id;
+$tc = $update->callback_query->message->chat->type;
+}
+$boti = bot('getme',['bot'])->result->username;
+$hook = json_decode(file_get_contents("hook.json"),1);
+function webhook($array){
+file_put_contents("hook.json",json_encode($array,32|128|265));
 }
 if($update){
 bot("setMyCommands",[
@@ -603,24 +709,7 @@ bot("setMyCommands",[
         ])
     ]); 
 }
-$from_id    = $message->from->id;
-$msgs = json_decode(file_get_contents('msgs.json'),true);
-$update = json_decode(file_get_contents('php://input'));
-$message = $update->message;
-$text = $message->text;
-$chat_id = $message->chat->id;
-$from_id = $message->from->id;
-if($message){
-$msgs['msgs'][$chat_id][$from_id] = ($msgs['msgs'][$chat_id][$from_id]+1);
-file_put_contents('msgs.json', json_encode($msgs));}
-$msgmemo = $msgs['msgs'][$chat_id]
-[$from_id];
-$user = $message->from->username; 
-$sudo= 7013440973;
-#@Viscobt1
-#@musicalgeria
-#@FROM_PHP
-if ($text == "قياس السرعة ⚡") {
+if ($text == "/speed") {
 $b=bot('sendMessage', [
         'chat_id' => $chat_id,
         'text' => "تم البدء بقياس السرعه ✅",
@@ -686,274 +775,178 @@ $b=bot('sendMessage', [
         'parse_mode' => "Markdown",
     ]);
 }
-elseif($text == "↪️ القائمة الرئيسية"){
-file_put_contents("data/$from_id/kro_iraq","no");
-file_put_contents("data/$from_id/token.txt","no");
-file_put_contents("data/$from_id/url.txt","no");
-        sendAction($chat_id, 'typing');
-	bot('sendmessage',[
-	'chat_id'=>$chat_id,
-	'text'=>"تم الرجوع الئ القائمة الرئيسية",
-        'parse_mode'=>'MarkDown',
-        	'reply_markup'=>json_encode([
-	'resize_keyboard'=>true,
-	'keyboard'=>[
-	[['text'=>"عمل ويب هوك ✅"],
-	['text'=>"حذف ويب هوك ❌"]],
-	[['text'=>"معلومات التوكن 🔎"]],
-	[['text'=>"قياس السرعة ⚡"]],
-	]
-	])
-	]);
-	}
-elseif($text == "عمل ويب هوك ✅"){
-     sendAction($chat_id, 'typing');
-			file_put_contents("data/$from_id/kro_iraq","to");
-				bot('sendmessage',[
-		'chat_id'=>$chat_id,
-		'text'=>"قم بارسال التوكن✅",
-                 'reply_markup'=>json_encode([
-	'resize_keyboard'=>true,
-	'keyboard'=>[
-	[
-	['text'=>"↪️ القائمة الرئيسية"]
-	],
-	]
-	])
-	]);
-	}
-	#@Viscobt1
-#@musicalgeria
-#@FROM_PHP
-elseif($ali == "to"){
-$token = $text;
-
-    $ali1 = json_decode(file_get_contents("https://api.telegram.org/bot" . $token . "/getwebhookinfo"));
-    $ali2 = json_decode(file_get_contents("https://api.telegram.org/bot" . $token . "/getme"));
-    $tik2 = objectToArrays($ali1);
-    $ur = $tik2["result"]["url"];
-    $ok2 = $tik2["ok"];
-    $tik1 = objectToArrays($ali2);
-    $un = $tik1["result"]["username"];
-    $fr = $tik1["result"]["first_name"];
-    $id = $tik1["result"]["id"];
-    $ok = $tik1["ok"];
-    if ($ok != 1) {
-        SendMessage($chat_id, "");
-    } else{
-    file_put_contents("data/$from_id/kro_iraq","url");
-    file_put_contents("data/$from_id/token.txt",$text);
-	SendAction($chat_id,'typing');
-	bot('sendmessage',[
-    'chat_id'=>$chat_id,
-    'text'=>"قم بارسال رابط الملف✅",
-  ]);
+#--------------------- ستارت -------------------#
+if($text ==  '/start' ){
+bot('sendMessage',[ 
+'chat_id'=>$chat_id,
+ 'text'=>"* مرحبا * [$name](tg://user?id=$chat_id)
+*• مرحبا بك في بوت 💭 عمل ويب هوك وحذف 🌙 ويب هوك بلأضافه الى 📃 استخراج معلومات التوكن ☑️ •*
+*• ᴄᴀɴ ᴄʀᴇᴀᴛᴇ ᴡᴇʙʜᴏᴏᴋ ᴏʀ ᴅᴇʟᴇᴛᴇ ᴡᴇʙʜᴏᴏᴋ ᴏʀ ɪɴғᴏ ʙᴏᴛ ᴡᴇʙʜᴏᴏᴋ ғʀᴏᴍ ʙᴏᴛ •*
+﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎",
+ 'parse_mode'=>"Markdown",
+'reply_markup'=>json_encode([
+'inline_keyboard'=>[
+[['text'=>"• عمل ويبهوك •", 'callback_data'=>'create'],['text'=>"• حذف ويبهوك •", 'callback_data'=>'delet']],
+[['text'=>"• معلومات التوكن •", 'callback_data'=>'infos'],['text'=>"• ɪɴғᴏ ᴍʏ •", 'callback_data'=>'dev']],
+]
+])
+]);
 }
+if($data == 'exit'){
+ bot('editMessageText',[ 
+ 'chat_id'=>$chat_id,
+ 'message_id'=>$message_id,
+ 'text'=>"* اهلا * [$name](tg://user?id=$chat_id)
+*• مرحبا بك في بوت 💭 عمل ويب هوك وحذف 🌙 ويب هوك بلأضافه الى 📃 استخراج معلومات التوكن ☑️ •*
+*• ᴄᴀɴ ᴄʀᴇᴀᴛᴇ ᴡᴇʙʜᴏᴏᴋ ᴏʀ ᴅᴇʟᴇᴛᴇ ᴡᴇʙʜᴏᴏᴋ ᴏʀ ɪɴғᴏ ʙᴏᴛ ᴡᴇʙʜᴏᴏᴋ ғʀᴏᴍ ʙᴏᴛ •*
+﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎",
+ 'parse_mode'=>"Markdown",
+'reply_markup'=>json_encode([
+'inline_keyboard'=>[
+[['text'=>"• عمل ويبهوك •", 'callback_data'=>'create'],['text'=>"• حذف ويبهوك •", 'callback_data'=>'delet']],
+[['text'=>"• معلومات التوكن •", 'callback_data'=>'infos'],['text'=>"• ɪɴғᴏ ᴍʏ •", 'callback_data'=>'dev']],
+]
+])
+]);
+unset($hook[$from_id]);
+ webhook($hook);
 }
-elseif($ali == "url"){
-if (!preg_match("/\b(?:(?:https?|ftp):\/\/|www\.)[-a-z0-9+&@#\/%?=~_|!:,.;]*[-a-z0-9+&@#\/%=~_|]/i",$text))
-  {
-  SendAction($chat_id,'typing');
-	bot('sendmessage',[
-    'chat_id'=>$chat_id,
-    'text'=>"رابط الملف خطا❌",
-  ]);
+#--------------------- save -------------------#
+$mydata = $hook[$chat_id]['data'];
+$mytoken = $hook[$chat_id]['token'];
+$array=['create','delet','infos'];
+if(in_array($data,$array)){
+ bot('editMessageText',[ 
+ 'chat_id'=>$chat_id,
+ 'message_id'=>$message_id,
+ 'text'=>"
+*حسنا عزيزي 🔬 الان قم بارسال التوكن*
+*• ᴏᴋ ᴄᴀɴ sᴇɴᴅ ʏᴏᴜʀ ᴛᴏᴋᴇɴ ᴛʜᴇ ʙᴏᴛ •*",
+ 'parse_mode'=>"Markdown",
+'reply_markup'=>json_encode([
+'inline_keyboard'=>[
+[['text'=>"• ʙᴀᴄᴋ •", 'callback_data'=>'exit']],
+]])
+ ]);
+ $hook[$from_id]['data']=$data;
+ $hook[$from_id]['message']=$message_id;
+ webhook($hook);
  }
- else {
- file_put_contents("data/$from_id/kro_iraq","no");
- file_put_contents("data/$from_id/url.txt",$text);
- 	bot('sendmessage',[
-    'chat_id'=>$chat_id,
-    'text'=>"انتظر يتم تحميل البيانات ...",
-  ]);
-  sleep(1);
-   	bot('editmessagetext',[
-    'chat_id'=>$chat_id,
-        'message_id'=>$message_id + 1,
-    'text'=>"انتظر يتم تحميل البيانات ...",
-  ]);
-	bot('editmessagetext',[
-    'chat_id'=>$chat_id,
-     'message_id'=>$message_id + 1,
-    'text'=>"*
-━━━━━━━━━━━━━━━━━━━━━━━
-                   『 موهان & BR 』
-━━━━━━━━━━━━━━━━━━━━━━━
-🇮🇶 مرحبا بك 
-🧾 توكنك :
- $to
-
-📝 مسار ملفك :
- $text
-
-اضغط /visco للتاكيد
-━━━━━━━━━━━━━━━━━━━━━━━
-",
-  ]);
- }
+#--------------------- معلومات التوكن -------------------#
+if(preg_match('/\d:\S{35}/',$text)){
+ $info = json_decode(file_get_contents("https://api.telegram.org/bot".filter_var($text,FILTER_SANITIZE_STRING)."/getme"));
+$getwebhook = json_decode(file_get_contents("https://api.telegram.org/bot$text/getwebhookinfo"));
+$bot_user = $info->result->username;
+$bot_name = $info->result->first_name;
+$bot_id = $info->result->id;
+$bot_url = $getwebhook->result->url;
+if($info->ok =="ture"){
+bot('deletemessage',[ 
+ 'chat_id'=>$chat_id,
+ 'message_id'=>$hook[$from_id]['message']]);
+if ($mydata=='create'){
+bot('sendMessage',[ 
+ 'chat_id'=>$chat_id,
+ 'text'=>"
+*حسنا عزيزي 🔬 الان قم بارسال 🔖 رابط الملف 🕸*
+*• ᴏᴋ sᴇɴᴅ ʏᴏᴜʀ ᴜʀʟ ᴡᴇʙsᴇᴛ •*",
+ 'parse_mode'=>"Markdown",
+'reply_markup'=>json_encode([
+'inline_keyboard'=>[
+[['text'=>"• ʙᴀᴄᴋ •", 'callback_data'=>'exit']],
+]])
+ ]);
+ $hook[$from_id]['token']=$text;
+ $hook[$from_id]['message']=$message_id;
+ webhook($hook);
 }
-elseif($text == "/visco" ){
-if($to != "no"){
- 	 	bot('sendmessage',[
-    'chat_id'=>$chat_id,
-    'text'=>"انتظر يتم تحميل البيانات ...",
-  ]);
-  sleep(1);
-	bot('editmessagetext',[
-    'chat_id'=>$chat_id,
-     'message_id'=>$message_id + 1,
-      'text'=>"انتظر يتم تحميل البيانات ...",
-  ]);
-  file_get_contents("https://api.telegram.org/bot$to/setwebhook?url=$url");
-    sleep(1);
-	bot('editmessagetext',[
-    'chat_id'=>$chat_id,
-     'message_id'=>$message_id + 1,
-      'text'=>"انتظر يتم تحميل البيانات ...",
-  ]);
-  sleep(1);
-  file_put_contents("data/$from_id/kro_iraq","no");
-	bot('sendmessage',[
-	'chat_id'=>$chat_id,
-		    'message_id'=>$message_id + 1,
-	'text'=>"تم عمل ويب هوك بنجاح✅",
-        'parse_mode'=>'MarkDown',
-        	'reply_markup'=>json_encode([
-	'resize_keyboard'=>true,
-	'keyboard'=>[
-	[['text'=>"عمل ويب هوك ✅"],['text'=>"معلومات التوكن 🔎"]],
-	[['text'=>"حذف ويب هوك ❌"]],
-	 [['text'=>'↪️ القائمة الرئيسية']]
-	]
-	])
-	]);
-}
-
-}
-#@Viscobt1
-#@musicalgeria
-#@FROM_PHP
-elseif($text == "معلومات التوكن 🔎" ){
-    file_put_contents("data/$from_id/kro_iraq","token");
-	sendaction($chat_id,'typing');
-	bot('sendmessage',[
-    'chat_id'=>$chat_id,
-    'text'=>"قم بارسال التوكن✅",
-    'parse_mode'=>'html',
-    'reply_markup'=>json_encode([
-      'keyboard'=>[
-	  [['text'=>'↪️ القائمة الرئيسية']],
-      ],'resize_keyboard'=>true])
-  ]);
-}
-elseif($ali == "token"){
-$token = $text;
-
-    $ali1 = json_decode(file_get_contents("https://api.telegram.org/bot" . $token . "/getwebhookinfo"));
-    $ali2 = json_decode(file_get_contents("https://api.telegram.org/bot" . $token . "/getme"));
-    $tik2 = objectToArrays($ali1);
-    $ur = $tik2["result"]["url"];
-    $ok2 = $tik2["ok"];
-    $tik1 = objectToArrays($ali2);
-    $un = $tik1["result"]["username"];
-    $fr = $tik1["result"]["first_name"];
-    $id = $tik1["result"]["id"];
-    $ok = $tik1["ok"];
-    if ($ok != 1) {
-        SendMessage($chat_id, "التوكن خطا❌");
-    } else{
-    file_put_contents("data/$from_id/kro_iraw","no");
-    
-	SendAction($chat_id,'typing');
- 	bot('sendmessage',[
-    'chat_id'=>$chat_id,
-    'text'=>"انتظر يتم تحميل البيانات ...",
-  ]);
-  sleep(1);
-	bot('editmessagetext',[
-    'chat_id'=>$chat_id,
-     'message_id'=>$message_id + 1,
-    'text'=>"
-📝 مـعـلـومـات الـتـوكـن هـي :
-• مـعـرف الـبـوت
-- @$un 
-• ايـدي الـبـوت
-- $id
-• اسـم الـبـوت
-- $fr
-• رابـط الـمـلـف
-- $ur
-",
-  ]);
-}
-}
-elseif($text == "حذف ويب هوك ❌" ){
-    file_put_contents("data/$from_id/kro_iraq","del");
-	sendaction($chat_id,'typing');
-	bot('sendmessage',[
-    'chat_id'=>$chat_id,
-    'text'=>"قم بارسال التوكن لحذف ويب هوك ❌",
-    'parse_mode'=>'html',
-    'reply_markup'=>json_encode([
-      'keyboard'=>[
-	  [['text'=>'↪️ القائمة الرئيسية']],
-      ],'resize_keyboard'=>true])
-  ]);
-}
-elseif($ali == "del"){
-$token = $text;
-
-    $ali1 = json_decode(file_get_contents("https://api.telegram.org/bot" . $token . "/getwebhookinfo"));
-    $ali2 = json_decode(file_get_contents("https://api.telegram.org/bot" . $token . "/getme"));
-    $tik2 = objectToArrays($ali1);
-    $ur = $tik2["result"]["url"];
-    $ok2 = $tik2["ok"];
-    $tik1 = objectToArrays($ali2);
-    $un = $tik1["result"]["username"];
-    $fr = $tik1["result"]["first_name"];
-    $id = $tik1["result"]["id"];
-    $ok = $tik1["ok"];
-    if ($ok != 1) {
-        SendMessage($chat_id, "التوكن خطا❌");
-    } else{
-    file_put_contents("data/$from_id/kro_iraq","no");
-    
-	SendAction($chat_id,'typing');
- 	bot('sendmessage',[
-    'chat_id'=>$chat_id,
-    'text'=>"انتظر يتم تحميل البيانات ...",
-  ]);
-  sleep(1);
-	bot('editmessagetext',[
-    'chat_id'=>$chat_id,
-     'message_id'=>$message_id + 1,
-    'text'=>"انتظر يتم تحميل البيانات ...",
-  ]);
-}
+#---------------------  حذف الويب هوك -------------------#
+if ($mydata=='delet'){
+bot('sendMessage',[ 
+ 'chat_id'=>$chat_id,
+ 'text'=>"* • ᴅᴏɴᴇ ᴅᴇʟᴇᴛᴇ ʏᴏᴜʀ ᴡᴇʙʜᴏᴏᴋ • *",
+ 'parse_mode'=>"Markdown",
+'reply_markup'=>json_encode([
+'inline_keyboard'=>[
+[['text'=>"• ʙᴀᴄᴋ •", 'callback_data'=>'exit']],
+]])
+ ]);
+ $send ="------------------------------------------\nᴅᴏɴᴇ ᴅᴇʟᴇᴛᴇ ᴡᴇʙʜᴏᴏᴋ\n\n ᴅᴇʟᴇᴛᴇ ʙʏ : @$boti";
+file_get_contents("https://api.telegram.org/bot".$text."/sendmessage?chat_id=$chat_id&text=".urlencode($send));
 file_get_contents("https://api.telegram.org/bot$text/deletewebhook");
-sleep(1);
-	bot('editmessagetext',[
-    'chat_id'=>$chat_id,
-     'message_id'=>$message_id + 1,
-    'text'=>"تم حذف ويب هوك بنجاح✅",
-  ]);
-  sleep(1);
-  file_put_contents("data/$from_id/kro_iraq","no");
-	bot('sendmessage',[
-	'chat_id'=>$chat_id,
-		    'message_id'=>$message_id + 1,
-	'text'=>"تم الرجوع الئ القائمة الرئيسية✅",
-        'parse_mode'=>'MarkDown',
-        	'reply_markup'=>json_encode([
-	'resize_keyboard'=>true,
-	'keyboard'=>[
-	[['text'=>"عمل ويب هوك ✅"],['text'=>"معلومات التوكن 🔎"]],
-	[['text'=>"حذف ويب هوك ❌"]]
-	]
-	])
-	]);
+unset($hook[$from_id]);
+ webhook($hook);
 }
-?>
-#@Viscobt1
-#@musicalgeria
-#@FROM_PHP
+#--------------------- معلومات الويب هوك -------------------#
+if ($mydata=='infos'){
+bot('sendMessage',[ 
+ 'chat_id'=>$chat_id,
+ 'text'=>"*
+• ɪɴғᴏ ʙᴏᴛ @$bot_user :
+ ------------------------------------------
+• ʙᴏᴛ ɴᴀᴍᴇ : *[$bot_name](@$bot_user)*
+• ʙᴏᴛ ᴜsᴇʀ : @$bot_user
+• ʙᴏᴛ ɪᴅ : $bot_id
+• ᴡᴇʙʜᴏᴏᴋ ᴜʀʟ : $bot_url *",
+ 'parse_mode'=>"Markdown",
+'reply_markup'=>json_encode([
+'inline_keyboard'=>[
+[['text'=>"• ʙᴀᴄᴋ •", 'callback_data'=>'exit']],
+]])
+ ]);
+ unset($hook[$from_id]);
+ webhook($hook);
+}
+}else{
+bot('sendMessage',[ 
+ 'chat_id'=>$chat_id,
+ 'text'=>"
+*🔬 التوكن 🔖 غير صحيح🕸*
+* • ʏᴏᴜ sᴇɴᴛ ᴛʜᴇ ᴡʀᴏɴɢ ᴛᴏᴋᴇɴ •*",
+ 'parse_mode'=>"Markdown",
+'reply_markup'=>json_encode([
+'inline_keyboard'=>[
+[['text'=>"• ʙᴀᴄᴋ •", 'callback_data'=>'exit']],
+]])
+ ]);
+}}
+if(preg_match("/\b(?:(?:https?|http):\/\/|www\.)[-a-z0-9+&@#\/%?=~_|!:,.;]*[-a-z0-9+&@#\/%=~_|]/i",$text) and $mytoken!==null){
+$send ="------------------------------------------\nᴅᴏɴᴇ ᴄʀᴇᴀᴛᴇ ᴡᴇʙʜᴏᴏᴋ\n\nsᴇɴᴅ /start ᴛᴏ ʀᴜɴ ʏᴏᴜʀ ʙᴏᴛ\n\nᴄʀᴇᴀᴛᴇ ʙʏ : @$boti";
+file_get_contents("https://api.telegram.org/bot".$mytoken."/setwebhook?url=$text");
+file_get_contents("https://api.telegram.org/bot".$mytoken."/sendmessage?chat_id=$chat_id&text=".urlencode($send));
+bot('deletemessage',[ 
+ 'chat_id'=>$chat_id,
+ 'message_id'=>$hook[$from_id]['message']]);
+ bot('sendMessage',[ 
+ 'chat_id'=>$chat_id,
+ 'text'=>"*
+ • ᴅᴏɴᴇ ᴄʀᴇᴀᴛᴇ ᴡᴇʙʜᴏᴏᴋ ʏᴏᴜʀ ʙᴏᴛ •
+ • ᴀɴᴅ ᴅᴏɴᴇ sᴇɴᴅ ᴍᴇssᴀɢᴇ ʏᴏᴜʀ ʙᴏᴛ •*",
+ 'parse_mode'=>"Markdown",
+ 'reply_markup'=>json_encode([
+ 'inline_keyboard'=>[
+[['text'=>"• ʙᴀᴄᴋ •", 'callback_data'=>'exit']],
+ ]])
+ ]);
+ unset($hook[$from_id]);
+ webhook($hook);
+}
+
+if($data == 'dev'){
+ bot('editMessageText',[ 
+ 'chat_id'=>$chat_id,
+ 'message_id'=>$message_id,
+ 'text'=>"*
+ ﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎
+ • •
+﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎*",
+ 'parse_mode'=>"Markdown",
+ 'reply_markup'=>json_encode([
+ 'inline_keyboard'=>[
+ [['text'=>"• ᴍʏ ᴘʀᴏғɪʟᴇ •", 'url'=>'t.me/RRR7ZZZ']],
+ [['text'=>"• ᴍʏ ᴄʜᴀɴɴᴇʟ •", 'url'=>'t.me/RRR6ZZZ']],
+ [['text'=>"• ʙᴀᴄᴋ •", 'callback_data'=>'exit']],
+]
+])
+]);
+}
