@@ -43,7 +43,7 @@ $name = $update->message->from->first_name;
 $from_id = $update->message->from->id;
 ####لوحة الادمن###
 $admin = "7013440973"; ###ايديك###
-$sudo = array("1705301173","0000","0000");
+$sudo = array("7013440973","0000","0000");
 $AMR = file_get_contents("AMR.txt");
 $AMR0 = file_get_contents("AMR0.txt");
 $AMR1= file_get_contents("AMR1.txt");
